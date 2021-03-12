@@ -6,7 +6,7 @@ import (
 	"github.com/therecipe/qt/widgets"
 )
 
-func main() {
+func showReminder(name string) {
 
 	window := widgets.NewQMainWindow(nil, 0)
 

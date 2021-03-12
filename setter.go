@@ -4,9 +4,12 @@ import (
 	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
 	"github.com/therecipe/qt/widgets"
+	"strconv"
+	"strings"
+	"time"
 )
 
-func main() {
+func showSetter() {
 	window := widgets.NewQMainWindow(nil, 0)
 
 	centralWidget := widgets.NewQWidget(nil, 0)
@@ -25,7 +28,12 @@ func main() {
 	button.SetFont(gui.NewQFont2("sans", 20, 0, false))
 	button.SetFixedSize2(100, 50)
 	button.ConnectClicked(func(checked bool) {
-		reminders
+		strList := strings.Split(timeEdit.Text(), " ")
+		min, _ := strconv.Atoi(strList[0])
+		sec, _ := strconv.Atoi(strList[2])
+		duration := time.Minute*time.Duration(min) + time.Second*time.Duration(sec)
+		reminderTime := time.Now().Add(duration)
+		reminders = append(reminders, Reminder{nameEdit.Text(), reminderTime})
 		window.Close()
 	})
 	layout.AddWidget(button, 0, core.Qt__AlignHCenter)
